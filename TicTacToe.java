@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import java.lang.*;
 
 public class TicTacToe implements ActionListener{
 
@@ -153,6 +154,15 @@ public class TicTacToe implements ActionListener{
     if((buttons[2].getText() == "O") && (buttons[4].getText() == "O") && (buttons[6].getText() == "O")){
       oWins(2,4,6);
     }
+    //Tie condition
+    boolean full = true;
+    for(int i=0; i<9; i++){
+      if(buttons[i].getText() != "O" && buttons[i].getText() != "X"){
+        full = false;
+      }
+    }
+    if(full == true)
+      tie();
   }
   public void xWins(int a, int b, int c){
     buttons[a].setBackground(Color.GREEN);
@@ -171,5 +181,11 @@ public class TicTacToe implements ActionListener{
       buttons[i].setEnabled(false);
     }
     textfield.setText("O Wins");
+  }
+  public void tie(){
+    for(int i=0; i<9; i++){
+      buttons[i].setEnabled(false);
+    }
+    textfield.setText("Tie");
   }
 }
