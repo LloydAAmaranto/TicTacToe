@@ -61,6 +61,22 @@ public class TicTacToe implements ActionListener{
 
   public void firstTurn(){
 
+    //Displays the text "Tic-Tac-Toe for 2 seconds"
+    try{
+      Thread.sleep(2000);
+    }
+    catch(InterruptedException e){
+      e.printStackTrace();
+    }
+
+    if(random.nextInt(2) == 0){
+      player1_turn = true;
+      textfield.setText("X turn");
+    }
+    else{
+      player1_turn = false;
+      textfield.setText("O turn");
+    }
   }
 
   public void check(){
