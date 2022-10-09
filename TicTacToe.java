@@ -7,15 +7,16 @@ import java.lang.*;
 public class TicTacToe implements ActionListener{
 
   Random random = new Random();
-  JFrame frame = new JFrame();
+  JFrame frame = new JFrame("Tic-Tac-Toe");
   JPanel title_panel = new JPanel();
   JPanel button_panel = new JPanel();
+  JPanel restartButtonPanel = new JPanel();
   JLabel textfield = new JLabel();
   JButton[] buttons = new JButton[9];
+  JButton restartButton = new JButton("RESTART");
   boolean player1_turn;
 
   public TicTacToe(){
-
     //frame
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //size of window
@@ -48,10 +49,14 @@ public class TicTacToe implements ActionListener{
       buttons[i].addActionListener(this);
     }
 
+    restartButtonPanel.add(restartButton);
+    frame.getContentPane().add(restartButtonPanel, BorderLayout.SOUTH);
+    restartButton.addActionListener(this);
+    restartButtonPanel.setVisible(false);
+
     title_panel.add(textfield);
     frame.add(title_panel, BorderLayout.NORTH);
     frame.add(button_panel);
-
     firstTurn();
   }
 
@@ -79,10 +84,13 @@ public class TicTacToe implements ActionListener{
         }
       }
     }
+    if(e.getSource() == restartButton){
+      restartBoard();
+      restartButtonPanel.setVisible(false);
+    }
   }
 
   public void firstTurn(){
-
     //Displays the text "Tic-Tac-Toe for 2 seconds"
     try{
       for(int i=0; i<9; i++)
@@ -172,6 +180,7 @@ public class TicTacToe implements ActionListener{
       buttons[i].setEnabled(false);
     }
     textfield.setText("X Wins");
+    restart();
   }
   public void oWins(int a, int b, int c){
     buttons[a].setBackground(Color.GREEN);
@@ -181,11 +190,22 @@ public class TicTacToe implements ActionListener{
       buttons[i].setEnabled(false);
     }
     textfield.setText("O Wins");
+    restart();
   }
   public void tie(){
     for(int i=0; i<9; i++){
       buttons[i].setEnabled(false);
     }
     textfield.setText("Tie");
+    restart();
+  }
+  public void restart(){
+    restartButtonPanel.setVisible(true);
+  }
+  public void restartBoard(){
+    for(int i=0; i<9; i++){
+      buttons[i].setEnabled(true);
+      buttons[i].setText("");
+    }
   }
 }
